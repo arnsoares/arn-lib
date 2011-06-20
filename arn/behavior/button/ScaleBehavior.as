@@ -21,19 +21,16 @@ package arn.behavior.button
 			_time = time;
 			_scale = scale;
 			_ease = ease;
-						
 		}
 		
-		override public function show():void
+		override public function show(target:MovieClip):void
 		{
-			super.show();
-
+			//super.show(target);
 		}
 		
-		override public function hide():void
+		override public function hide(target:MovieClip):void
 		{
-			super.hide();
-			
+			//super.hide();
 		}
 		
 		override public function over(target:MovieClip):void
@@ -46,6 +43,7 @@ package arn.behavior.button
 		{
 			TweenMax.to(target, _time, {scaleX:_initialScale, scaleY:_initialScale, ease:_ease});
 		}
+		
 	}
 
 }

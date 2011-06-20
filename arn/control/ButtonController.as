@@ -14,16 +14,16 @@ package arn.control
 		protected var _target:MovieClip;
 		protected var _enabled:Boolean = false;
 	
-		public function ButtonController(buttonAsset:MovieClip, behavior:ConceptButton, click:Function = null, target:MovieClip = null)
+		public function ButtonController(buttonAsset:MovieClip, behavior:ConceptButton, click:Function = null)
 		{
 			_asset = buttonAsset;
 			_behavior = behavior;
 			_click = click;
-			_target = target;
+			//_target = target;
 			
 			// Initialize enabled
 			enabled = false;
-			buttonProperties(false, true, true, true);
+			buttonProperties(false, true, true);
 			
 			addChild(_asset);
 		}
@@ -91,15 +91,23 @@ package arn.control
 		 * description
 		 * @param mChildren Boolean - mouseChildren
 		 * @param bMode Boolean - buttonMode
-		 * @param mEnabled Boolean - mouseEnabled
 		 * @param cHand Boolean - useHandCursor
 		*/
-		public function buttonProperties(mChildren:Boolean = false, bMode:Boolean = true, mEnabled:Boolean = true, cHand:Boolean = true):void
+		public function buttonProperties(mChildren:Boolean = false, bMode:Boolean = true, cHand:Boolean = true):void
 		{
 			mouseChildren = mChildren;
 			buttonMode = bMode;
-			mouseEnabled = mEnabled;
 			useHandCursor = cHand;
+		}
+		
+		public function dispose():void
+		{
+			
+			_asset.parent.removeChild(_asset);
+			_asset = null;
+			_behavior = null;
+			_click = null;
+			_target = null;
 		}
 	
 	}

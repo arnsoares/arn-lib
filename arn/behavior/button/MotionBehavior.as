@@ -2,6 +2,7 @@ package arn.behavior.button
 {
 	import arn.behavior.button.ConceptButton;
 	import flash.display.MovieClip;
+	import flash.utils.setTimeout;
 
 	public class MotionBehavior extends ConceptButton 
 	{
@@ -19,13 +20,11 @@ package arn.behavior.button
 		
 		override public function hide(target:MovieClip):void
 		{
-			//_lock = true;
 			target.gotoAndPlay("hide");
 		}
 		
 		override public function over(target:MovieClip):void
 		{
-			//_lock = false;
 			target.gotoAndPlay("over");
 		}
 		
