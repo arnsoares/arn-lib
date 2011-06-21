@@ -19,10 +19,10 @@ package arn.control
 			_asset = buttonAsset;
 			_behavior = behavior;
 			_click = click;
-			//_target = target;
-			
+
 			// Initialize enabled
 			enabled = false;
+			
 			buttonProperties(false, true, true);
 			
 			addChild(_asset);
@@ -35,6 +35,7 @@ package arn.control
 		
 		public function hide():void
 		{
+			enabled = false;
 			_behavior.hide(_asset);
 		}
 				
@@ -59,28 +60,21 @@ package arn.control
 		
 		public function set enabled(value:Boolean):void
 		{
-			if(value != _enabled)
-			{
-				_enabled = value;
-				
-				if(_enabled) {
-					this.addEventListener(MouseEvent.ROLL_OVER, buttonHandler);
-					this.addEventListener(MouseEvent.ROLL_OUT, buttonHandler);
-					this.addEventListener(MouseEvent.CLICK, buttonHandler);
-				}
-				else {
-					this.removeEventListener(MouseEvent.ROLL_OVER, buttonHandler);
-					this.removeEventListener(MouseEvent.ROLL_OUT, buttonHandler);
-					this.removeEventListener(MouseEvent.CLICK, buttonHandler);
-				}
-				  //this.mouseEnabled = this.mouseChildren = value;
-					//_hitArea.visible = value;
-					this.buttonMode = value;
-					this.useHandCursor = value;
-					this.mouseChildren = false;
-					this.mouseEnabled = value;
-				}
+			_enabled = value;
+			
+			if(_enabled == true) {
+				this.addEventListener(MouseEvent.ROLL_OVER, buttonHandler);
+				this.addEventListener(MouseEvent.ROLL_OUT, buttonHandler);
+				this.addEventListener(MouseEvent.CLICK, buttonHandler);
+			}	else {
+				trace("enable = false");
+				this.removeEventListener(MouseEvent.ROLL_OVER, buttonHandler);
+				this.removeEventListener(MouseEvent.ROLL_OUT, buttonHandler);
+				this.removeEventListener(MouseEvent.CLICK, buttonHandler);
 			}
+
+			buttonProperties(false, value, value);
+		}
 
 		public function get enabled():Boolean
 		{
@@ -101,13 +95,14 @@ package arn.control
 		}
 		
 		public function dispose():void
-		{
-			
-			_asset.parent.removeChild(_asset);
+		{	
+			removeChild(_asset);
 			_asset = null;
 			_behavior = null;
 			_click = null;
 			_target = null;
+						
+			if(this.parent) this.parent.removeChild(this);
 		}
 	
 	}
